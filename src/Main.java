@@ -30,22 +30,16 @@ public class Main {
                 .map(Person::getFamily)
                 .toList();
 
+        List<Person> educated = persons.stream()
+                .filter(f -> f.getAge() > 18)
+                .filter(g ->
+                    (g.getAge() < 60 && g.getSex() == Sex.WOMAN)
+                            || (g.getAge() < 65 && g.getSex() == Sex.MAN))
+                .sorted(Comparator.comparing(Person::getFamily))
+                .toList();
 
 
-        List<String> educated = new ArrayList<>();
-        for (Person f : persons) {
-            if (f.getAge() > 18) {
-                if (f.getEducation() == Education.HIGHER) {
-                    if ((f.getAge() < 65)&&(f.getSex() == Sex.MAN)) {
-                        educated.add(String.valueOf(f));
-                    }
-                    if ((f.getAge() < 60)&&(f.getSex() == Sex.WOMAN)) {
-                        educated.add(String.valueOf(f));
-                    }
-                }
-            }
-        }
-        List<String> sortedEducated = educated.stream()
+        List<Person> sortedEducated = educated.stream()
                 .sorted()
                 .toList();
 
